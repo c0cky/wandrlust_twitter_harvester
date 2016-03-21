@@ -48,8 +48,8 @@ def followup(file):
             data = json.loads(line)
             tweets.append(data)
     for t in tweets:
-        if t in followers:
-            x = api.GetUser(user_id=t)
+        if t["user"]["id"] in followers:
+            x = api.GetUser(user_id=t["user"]["id"])
             print x.screen_name
 
 
