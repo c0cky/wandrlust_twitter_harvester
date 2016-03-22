@@ -47,11 +47,14 @@ def followup(file):
         for line in data_file:
             data = json.loads(line)
             tweets.append(data)
+    followup = []
     for t in tweets:
         if t["user"]["id"] in followers:
             x = api.GetUser(user_id=t["user"]["id"])
-            print x.screen_name
-
+            followup.append(x.screen_name)
+    followup = sorted(set(followup))
+    for f in followup:
+        print f
 
 def main(argv):
     command = ""
