@@ -15,8 +15,8 @@ def harvest(query, out_file):
                       access_token_key=array[2],
                       access_token_secret=array[3])
     since_id = 0
-    wait_time = api.GetAverageSleepTime("/search/tweets")
     while (True):
+        wait_time = api.GetAverageSleepTime("/search/tweets")
         time.sleep(wait_time)
         results = api.GetSearch(term=query, since_id=since_id)
         for status in results:
