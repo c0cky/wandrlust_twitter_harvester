@@ -15,6 +15,7 @@ def harvest(query, out_file):
                       access_token_key=array[2],
                       access_token_secret=array[3],
                       sleep_on_rate_limit=True)
+    print api.rate_limit
     since_id = 0
     while (True):
         results = api.GetSearch(term=query, since_id=since_id, count=100, result_type="recent")
