@@ -15,12 +15,18 @@ def harvest(query, out_file):
                       access_token_key=array[2],
                       access_token_secret=array[3],
                       sleep_on_rate_limit=True)
-    print api.rate_limit
+    like = twitter.Api(consumer_key=array[0],
+                      consumer_secret=array[1],
+                      access_token_key=array[2],
+                      access_token_secret=array[3])
     since_id = 0
     while (True):
         results = api.GetSearch(term=query, since_id=since_id, count=100, result_type="recent")
         for status in results:
-            api.CreateFavorite(id=status.id)
+            try:
+                like.CreateFavorite(id=status.id)
+            except:
+                print "problem liking", status.id
             since_id = status.id
             with open(out_file, "a") as myfile:
                 myfile.write(str(status) + '\n')
