@@ -13,7 +13,8 @@ def harvest(query, out_file):
     api = twitter.Api(consumer_key=array[0],
                       consumer_secret=array[1],
                       access_token_key=array[2],
-                      access_token_secret=array[3])
+                      access_token_secret=array[3],
+                      sleep_on_rate_limit=True)
     since_id = 0
     while (True):
         wait_time = api.GetAverageSleepTime("/search/tweets")
