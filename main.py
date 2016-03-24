@@ -17,7 +17,7 @@ def harvest(query, out_file):
                       sleep_on_rate_limit=True)
     since_id = 0
     while (True):
-        results = api.GetSearch(term=query, since_id=since_id)
+        results = api.GetSearch(term=query, since_id=since_id, count=100, result_type="recent")
         for status in results:
             print "liking", status
             try:
