@@ -20,7 +20,7 @@ def harvest(query, out_file):
         results = api.GetSearch(term=query, since_id=since_id, count=100, result_type="recent")
         for status in results:
             try:
-                api.CreateFavorite(status=status)
+                api.CreateFavorite(id=status.id)
             except:
                 print "problem liking", status.id
             since_id = status.id
