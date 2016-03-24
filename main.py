@@ -17,11 +17,8 @@ def harvest(query, out_file):
                       sleep_on_rate_limit=True)
     since_id = 0
     while (True):
-        wait_time = api.GetAverageSleepTime("/search/tweets")
-        time.sleep(wait_time)
         results = api.GetSearch(term=query, since_id=since_id)
         for status in results:
-            time.sleep(wait_time)
             print "liking", status
             try:
                 api.CreateFavorite(status=status)
