@@ -20,10 +20,7 @@ def harvest(query, out_file):
     while (True):
         results = api.GetSearch(term=query, since_id=since_id, count=100, result_type="recent")
         for status in results:
-            try:
-                api.CreateFavorite(id=status.id)
-            except:
-                print "problem liking", status.id
+            api.CreateFavorite(id=status.id)
             since_id = status.id
             with open(out_file, "a") as myfile:
                 myfile.write(str(status) + '\n')
