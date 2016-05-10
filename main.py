@@ -28,6 +28,23 @@ def harvest(query, out_file):
             with open(out_file, "a") as myfile:
                 myfile.write(str(status) + '\n')
 
+def followers_list():
+    array = []
+    with open("keys.txt", "r") as ins:
+        for line in ins:
+            array.append(line.rstrip('\n'))
+    print array
+    api = twitter.Api(consumer_key=array[0],
+                      consumer_secret=array[1],
+                      access_token_key=array[2],
+                      access_token_secret=array[3])
+    followers = api.GetFollowerIDs()
+    friends = api.GetFriendIDs()
+    un_friend_list = list(set(followers) - set(friends))
+    for x in un_friend_list:
+        api.DestroyFriendship(user_id=x)
+    print "unfollowed : " ,len(un_friend_list)
+
 def followup(file):
     array = []
     with open("keys.txt", "r") as ins:
@@ -41,7 +58,7 @@ def followup(file):
     followers = api.GetFollowerIDs()
     import json
     tweets = []
-    with open(file) as data_file:  
+    with open(file) as data_file:
         for line in data_file:
             data = json.loads(line)
             tweets.append(data)
@@ -74,7 +91,7 @@ def main(argv):
             query = arg
         elif opt in ("-o", "--file"):
             file = arg
-    
+
     if not file:
         file = "statuses.json"
     print command
@@ -83,6 +100,8 @@ def main(argv):
         harvest(query, file)
     elif command == "followup":
         followup(file)
+    elif command == "followers":
+        followers_list()
     elif command == "":
         print "main.py --command <command> --query <query> --file <file>"
         sys.exit()
