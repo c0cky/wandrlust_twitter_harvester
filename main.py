@@ -28,6 +28,26 @@ def harvest(query, out_file):
             with open(out_file, "a") as myfile:
                 myfile.write(str(status) + '\n')
 
+def create_friends(query):
+    array = []
+    with open("keys.txt", "r") as ins:
+        for line in ins:
+            array.append(line.rstrip('\n'))
+    print array
+    api = twitter.Api(consumer_key=array[0],
+                      consumer_secret=array[1],
+                      access_token_key=array[2],
+                      access_token_secret=array[3])
+    if query == "":
+        query = "#blogger"
+    people = []
+    for i in range(1, 4):
+        people += api.GetUsersSearch(term=query, count=20, page=i)
+    print len(people)
+    for p in people:
+        print p.GetScreenName()
+        api.CreateFriendship(user_id=p.GetId())
+
 def followers_list():
     array = []
     with open("keys.txt", "r") as ins:
@@ -40,8 +60,11 @@ def followers_list():
                       access_token_secret=array[3])
     followers = api.GetFollowerIDs()
     friends = api.GetFriendIDs()
-    un_friend_list = list(set(followers) - set(friends))
+    un_friend_list = list(set(friends) - set(followers))
+    print len(followers)
+    print len(friends)
     for x in un_friend_list:
+        print x
         api.DestroyFriendship(user_id=x)
     print "unfollowed : " ,len(un_friend_list)
 
@@ -102,10 +125,12 @@ def main(argv):
         followup(file)
     elif command == "followers":
         followers_list()
+    elif command == "create":
+        create_friends(query)
     elif command == "":
         print "main.py --command <command> --query <query> --file <file>"
         sys.exit()
-    
+
     print "FINISHED!"
 
 main(sys.argv[1:])
