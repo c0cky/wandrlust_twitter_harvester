@@ -16,7 +16,22 @@ class StdOutListener(StreamListener):
     def on_error(self, status):
         print(status)
 
-if __name__ == '__main__':
+def main(argv):
+    query = ""
+    try:
+        opts, args = getopt.getopt(argv, "helps:w:i:", ["query="])
+    except getopt.GetoptError:
+        print "stream.py --query <query>"
+        sys.exit(2)
+
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            print "stream.py --query <query>"
+            sys.exit()
+        elif opt in ("-q", "--query"):
+            query = arg
+
+
     array = []
     with open("keys.txt", "r") as ins:
         for line in ins:
@@ -26,4 +41,6 @@ if __name__ == '__main__':
     auth.set_access_token(array[2], array[3])
 
     stream = Stream(auth, l)
-    stream.filter(track=['business'])
+    stream.filter(track=[query])
+
+main(sys.argv[1:])
