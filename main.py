@@ -39,9 +39,9 @@ def create_friends(query):
                       access_token_key=array[2],
                       access_token_secret=array[3])
     if query == "":
-        query = "#blogger"
+        query = "early adopter"
     people = []
-    for i in range(1, 4):
+    for i in range(2, 5):
         people += api.GetUsersSearch(term=query, count=20, page=i)
     print len(people)
     for p in people:
