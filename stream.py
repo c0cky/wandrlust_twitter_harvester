@@ -4,6 +4,10 @@ from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
 
+import time
+import getopt
+import sys
+
 
 class StdOutListener(StreamListener):
     """ A listener handles tweets that are received from the stream.
