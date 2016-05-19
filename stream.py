@@ -21,12 +21,12 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv, "helps:w:i:", ["query="])
     except getopt.GetoptError:
-        print "stream.py --query <query>"
+        print ("stream.py --query <query>")
         sys.exit(2)
 
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            print "stream.py --query <query>"
+            print ("stream.py --query <query>")
             sys.exit()
         elif opt in ("-q", "--query"):
             query = arg
