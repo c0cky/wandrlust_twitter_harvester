@@ -1,4 +1,3 @@
-#!/usr/bin/python
 import twitter
 import time
 import getopt
@@ -58,9 +57,9 @@ def get_user_tweets(username):
         for line in ins:
             array.append(line.rstrip('\n'))
     print array
-    l = StdOutListener()
     auth = OAuthHandler(array[0], array[1])
     auth.set_access_token(array[2], array[3])
+    api = tweepy.API(auth)
     alltweets = []
 	#make initial request for most recent tweets (200 is the maximum allowed count)
     new_tweets = api.user_timeline(screen_name = screen_name,count=200)
