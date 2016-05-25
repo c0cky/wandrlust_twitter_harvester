@@ -51,7 +51,7 @@ def create_friends(query):
         api.CreateFriendship(user_id=p.GetId())
 
 
-def get_user_tweets(username):
+def get_user_tweets(screen_name):
     array = []
     with open("keys.txt", "r") as ins:
         for line in ins:
