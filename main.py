@@ -15,8 +15,7 @@ def harvest(query, out_file):
     api = twitter.Api(consumer_key=array[0],
                       consumer_secret=array[1],
                       access_token_key=array[2],
-                      access_token_secret=array[3],
-                      sleep_on_rate_limit=True)
+                      access_token_secret=array[3])
     since_id = 0
     while (True):
         results = api.GetSearch(term=query, since_id=since_id, count=100, result_type="recent")
@@ -54,7 +53,7 @@ def get_user_tweets(screen_name):
     print array
     auth = tweepy.OAuthHandler(array[0], array[1])
     auth.set_access_token(array[2], array[3])
-    api = tweepy.API(auth)
+    api = tweepy.API(auth, wait_on_rate_limit=True)
     alltweets = []
 	#make initial request for most recent tweets (200 is the maximum allowed count)
     new_tweets = api.user_timeline(screen_name = screen_name,count=200)
