@@ -57,7 +57,7 @@ def get_user_tweets(username):
         for line in ins:
             array.append(line.rstrip('\n'))
     print array
-    auth = OAuthHandler(array[0], array[1])
+    auth = tweepy.OAuthHandler(array[0], array[1])
     auth.set_access_token(array[2], array[3])
     api = tweepy.API(auth)
     alltweets = []
