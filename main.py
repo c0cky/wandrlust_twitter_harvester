@@ -14,6 +14,7 @@ def harvest(query, out_file):
     auth = tweepy.OAuthHandler(array[0], array[1])
     auth.set_access_token(array[2], array[3])
     api = tweepy.API(auth, wait_on_rate_limit=True)
+    max_tweets = 50000
     # print array
     # api = twitter.Api(consumer_key=array[0],
     #                   consumer_secret=array[1],
